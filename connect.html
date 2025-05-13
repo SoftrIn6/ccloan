@@ -863,7 +863,7 @@ document.addEventListener('DOMContentLoaded', function() {
         currentStep = 'back'; label.textContent = 'Back Picture'; desc.textContent = 'Scan the back of your book.';
         scanBtn.textContent = 'Scan Back Book'; nextBtn.style.display = 'none'; status.textContent = '';
     });
-    finishBtn.addEventListener('click', () => location.reload());
+    finishBtn.addEventListener('click', () => window.location.href = 'index.html');
     switchCam.addEventListener('click', () => { useFrontCamera = !useFrontCamera; initCamera(); });
 });
     </script>
